@@ -19,7 +19,7 @@ public class Cilindroquegira : MonoBehaviour
     void Update()
     {
         transform.Rotate(direccionM * velocidadR * Time.deltaTime, Space.World);
-        transform.Translate(direccionM.normalized * velocidadM * Time.deltaTime);
+        transform.Translate(direccionM.normalized * velocidadM * Time.deltaTime, Space.World);
 
         timer += Time.deltaTime;
         if (timer >= 3)

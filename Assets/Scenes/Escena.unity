@@ -338,6 +338,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   direccionF: {x: 0, y: 1, z: 0}
   fuerza: 2
+  direccionM: {x: 0, y: 0, z: -1}
+  fuerzaM: 50
 --- !u!1 &394286103
 GameObject:
   m_ObjectHideFlags: 0

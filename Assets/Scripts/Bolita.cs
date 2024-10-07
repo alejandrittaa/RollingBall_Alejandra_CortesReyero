@@ -6,7 +6,6 @@ public class Bolita : MonoBehaviour
 {
     Rigidbody bolita;
     [SerializeField] Vector3 direccionF;
-    [SerializeField] Vector3 direccionM;
     [SerializeField] int fuerza;
 
     // Start is called before the first frame update
@@ -27,7 +26,8 @@ public class Bolita : MonoBehaviour
         //MOVIMIENTO WASD Y FLECHAS
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
-        bolita.AddForce(direccionM * fuerza, ForceMode.Force);
+        Vector3 movimiento = new Vector3(h, 0, v);
+        bolita.AddForce(movimiento * fuerza, ForceMode.Force);
 
 
     }

@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - coleccionable
+  - trampa
+  - checkpoint
   layers:
   - Default
   - TransparentFX

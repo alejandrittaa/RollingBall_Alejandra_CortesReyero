@@ -7,11 +7,14 @@ public class Bolita : MonoBehaviour
     Rigidbody bolita;
     [SerializeField] Vector3 direccionF;
     [SerializeField] int fuerza;
-
+    int vidas = 3;
+    Vector3 posInicial;
     // Start is called before the first frame update
     void Start()
     {
-        bolita = GetComponent<Rigidbody>();
+        bolita = GetComponent<Rigidbody>(); 
+        //para guardar la posición inicial en la que empieza la bola
+        posInicial = transform.position;
     }
 
     // Update is called once per frame
@@ -37,6 +40,21 @@ public class Bolita : MonoBehaviour
        if(other.gameObject.CompareTag("coleccionable"))
         {
             Destroy(other.gameObject);
+        }else if (other.gameObject.CompareTag("trampa"))
+        {
+            Destroy(other.gameObject);
+            if(vidas > 0)
+            {
+                vidas--;
+                Debug.Log("Se te ha restado una vida");
+            }else
+            {
+                Debug.Log("No te quedan vidas");
+            }
+
+        }else if(other.gameObject.CompareTag("checkpoint"))
+        {
+            transform.position = posInicial;
         }
     }
 }

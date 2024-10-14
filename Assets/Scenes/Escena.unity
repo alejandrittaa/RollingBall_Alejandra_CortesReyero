@@ -2355,7 +2355,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa7155796051b734daa718462081dc5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_BindingMode: 1
+  m_BindingMode: 4
   m_FollowOffset: {x: 0, y: 15, z: -4}
   m_XDamping: 0
   m_YDamping: 1
@@ -3251,6 +3251,7 @@ SceneRoots:
   - {fileID: 733345140}
   - {fileID: 2103534545}
   - {fileID: 1996214429}
+  - {fileID: 225750312}
   - {fileID: 410087041}
   - {fileID: 832575519}
   - {fileID: 2066629684}
@@ -3282,4 +3283,3 @@ SceneRoots:
   - {fileID: 830661242}
   - {fileID: 1158972467}
   - {fileID: 765688619}
-  - {fileID: 225750312}

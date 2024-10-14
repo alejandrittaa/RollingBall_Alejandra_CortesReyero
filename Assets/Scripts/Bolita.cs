@@ -35,6 +35,7 @@ public class Bolita : MonoBehaviour
 
     }
 
+    //CHECKPOINT AL QUEDARSE SIN VIDAS
     private void OnTriggerEnter(Collider other)
     {
        if(other.gameObject.CompareTag("coleccionable"))

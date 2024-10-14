@@ -1,18 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CambiaCamaras : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private GameObject cam1;
+    [SerializeField] private GameObject cam2;
 
-    // Update is called once per frame
-    void Update()
+    //Cuando el jugador atraviese el cambiacamaras, cambiamos de cámara.
+    private void OnTriggerEnter(Collider other)
     {
-        
+        if (other.gameObject.CompareTag("Player"))
+        {
+            if (cam1.activeSelf)
+            {
+                cam1.SetActive(false);
+                cam2.SetActive(true);
+            }else
+            {
+                cam1.SetActive(true);
+                cam2.SetActive(false);
+            }
+            
+        }
     }
 }

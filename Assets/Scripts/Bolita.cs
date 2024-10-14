@@ -68,6 +68,8 @@ public class Bolita : MonoBehaviour
     private bool DetectaSuelo()
     {
         bool deteccion = Physics.Raycast(transform.position, Vector3.down, distanciaRayo);
+        //el rayo solo se pinta en la ventana de edición, no en la de play/jugar
+        Debug.DrawRay(transform.position, Vector3.down, Color.red, 2f);
         return deteccion;
     }
 }

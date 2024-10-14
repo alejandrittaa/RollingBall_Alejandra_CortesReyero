@@ -7,6 +7,7 @@ public class Bolita : MonoBehaviour
     Rigidbody bolita;
     [SerializeField] Vector3 direccionF;
     [SerializeField] int fuerza;
+    [SerializeField] float distanciaRayo;
     int vidas = 3;
     Vector3 posInicial;
     // Start is called before the first frame update
@@ -24,7 +25,12 @@ public class Bolita : MonoBehaviour
         //SALTO CON EL ESPACIO
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            bolita.AddForce(direccionF * fuerza, ForceMode.Impulse);
+            //no hace falta poner ==true, ya que de esta manera ya está preguntando internamente, "si se cumple este método..."
+            if(DetectaSuelo())
+            {
+                bolita.AddForce(direccionF * fuerza, ForceMode.Impulse);
+            }
+            
         }
         //MOVIMIENTO WASD Y FLECHAS
         float h = Input.GetAxis("Horizontal");
@@ -57,5 +63,11 @@ public class Bolita : MonoBehaviour
         {
             transform.position = posInicial;
         }
+    }
+
+    private bool DetectaSuelo()
+    {
+        bool deteccion = Physics.Raycast(transform.position, Vector3.down, distanciaRayo);
+        return deteccion;
     }
 }

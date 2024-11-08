@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Cilindroquegira : MonoBehaviour
 {
-    [SerializeField] Vector3 direccionR;
+    
     [SerializeField] Vector3 direccionM;
     int velocidadR = 90;
     float timer = 0;

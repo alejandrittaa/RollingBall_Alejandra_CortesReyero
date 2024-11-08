@@ -1,15 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class Bolita : MonoBehaviour
 {
     Rigidbody bolita;
     [SerializeField] Vector3 direccionF;
-    [SerializeField] int fuerza;
+    [SerializeField] int fuerzaSalto;
+    [SerializeField] int fuerzaMovimiento;
     [SerializeField] float distanciaRayo;
     int vidas = 3;
     Vector3 posInicial;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,7 +31,7 @@ public class Bolita : MonoBehaviour
             //no hace falta poner ==true, ya que de esta manera ya está preguntando internamente, "si se cumple este método..."
             if(DetectaSuelo())
             {
-                bolita.AddForce(direccionF * fuerza, ForceMode.Impulse);
+                bolita.AddForce(direccionF * fuerzaSalto, ForceMode.Impulse);
             }
             
         }
@@ -36,7 +39,7 @@ public class Bolita : MonoBehaviour
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
         Vector3 movimiento = new Vector3(h, 0, v);
-        bolita.AddForce(movimiento * fuerza, ForceMode.Force);
+        bolita.AddForce(movimiento * fuerzaMovimiento, ForceMode.Force);
 
 
     }

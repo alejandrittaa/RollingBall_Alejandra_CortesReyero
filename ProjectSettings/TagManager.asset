@@ -8,6 +8,11 @@ TagManager:
   - trampa
   - checkpoint
   - checkpoint2
+  - checkpoint3
+  - checkpoint4
+  - checkpoint5
+  - checkpoint6
+  - checkpoint7
   layers:
   - Default
   - TransparentFX

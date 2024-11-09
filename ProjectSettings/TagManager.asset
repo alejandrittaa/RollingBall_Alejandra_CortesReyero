@@ -13,6 +13,7 @@ TagManager:
   - checkpoint5
   - checkpoint6
   - checkpoint7
+  - PlataformaMovil
   layers:
   - Default
   - TransparentFX

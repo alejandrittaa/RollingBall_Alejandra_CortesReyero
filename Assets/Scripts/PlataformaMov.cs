@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlataformaMov : MonoBehaviour
 {
     float timer = 0;
-    int velocidad = 5;
+    int velocidad = 2;
     [SerializeField] Vector3 direccion;
 
     // Start is called before the first frame update

@@ -39,7 +39,17 @@ public class Bolita : MonoBehaviour
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
         Vector3 movimiento = new Vector3(h, 0, v);
-        bolita.AddForce(movimiento * fuerzaMovimiento, ForceMode.Force);
+
+        if (movimiento.magnitude > 0)
+        {
+            // Si hay entrada del jugador, aplicamos fuerza en la dirección del movimiento
+            bolita.AddForce(movimiento.normalized * fuerzaMovimiento, ForceMode.Force);
+        }
+        else
+        {
+            // Si no hay entrada, aplicamos una fuerza de frenado gradual
+            bolita.velocity *= 0.9f; // Factor de desaceleración (entre 0 y 1)
+        }
 
 
     }

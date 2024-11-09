@@ -47,14 +47,14 @@ public class Bolita : MonoBehaviour
 
         if (movimiento.magnitude > 0)
         {
-            // Aplica fuerza en X y Z en la dirección del movimiento, permitiendo aceleración
+            // Aplica fuerza en X y Z si hay movimiento
             bolita.AddForce(movimiento.normalized * fuerzaMovimiento, ForceMode.Force);
         }
         else if (!enSueloResbaladizo)
         {
-            // Si no hay entrada y no estamos en un suelo resbaladizo, aplicamos la parada en seco
+            // Si no estamos en suelo resbaladizo y no hay movimiento, aplicamos la desaceleración
             Vector3 velocidadActual = rb.velocity;
-            rb.velocity = new Vector3(velocidadActual.x * 0.9f, velocidadActual.y, velocidadActual.z * factorDesaceleracion);
+            rb.velocity = new Vector3(velocidadActual.x * factorDesaceleracion, velocidadActual.y, velocidadActual.z * factorDesaceleracion);
         }
     }
 

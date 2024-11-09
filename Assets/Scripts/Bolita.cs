@@ -47,8 +47,8 @@ public class Bolita : MonoBehaviour
         }
         else
         {
-            // Si no hay entrada, aplicamos una fuerza de frenado gradual
-            bolita.velocity *= 0.9f; // Factor de desaceleración (entre 0 y 1)
+            // Si no hay entrada, aplicamos una fuerza de frenado gradual (desaceleración (entre 0 y 1))
+            bolita.velocity *= 0.9f; 
         }
 
 

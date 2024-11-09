@@ -13,6 +13,7 @@ public class Bolita : MonoBehaviour
     int vidas = 3;
     Vector3 posInicial;
     private Rigidbody rb;
+    private bool enSueloResbaladizo = false;
 
     // Start is called before the first frame update
     void Start()
@@ -49,11 +50,11 @@ public class Bolita : MonoBehaviour
             // Aplica fuerza en X y Z en la dirección del movimiento, permitiendo aceleración
             bolita.AddForce(movimiento.normalized * fuerzaMovimiento, ForceMode.Force);
         }
-        else
+        else if (!enSueloResbaladizo)
         {
-            // Si no hay entrada, aplicamos una desaceleración suave solo en X y Z
-            Vector3 velocidadActual = bolita.velocity;
-            bolita.velocity = new Vector3(velocidadActual.x * factorDesaceleracion, velocidadActual.y, velocidadActual.z * factorDesaceleracion);
+            // Si no hay entrada y no estamos en un suelo resbaladizo, aplicamos la parada en seco
+            Vector3 velocidadActual = rb.velocity;
+            rb.velocity = new Vector3(velocidadActual.x * 0.9f, velocidadActual.y, velocidadActual.z * factorDesaceleracion);
         }
     }
 
@@ -89,7 +90,7 @@ public class Bolita : MonoBehaviour
         return deteccion;
     }
 
-    //PARA MOVERSE SIGUIENDO LA TRAYECTORIA DE LAS PLATAFORMAS AL ESTAR ENCIMA
+    //PARA MOVERSE SIGUIENDO LA TRAYECTORIA DE LAS PLATAFORMAS AL ESTAR ENCIMA Y PARA EL SUELO RESBALADIZO
     void OnCollisionEnter(Collision collision)
     {
         // Detecta si la bola aterriza sobre una plataforma móvil
@@ -97,6 +98,12 @@ public class Bolita : MonoBehaviour
         {
             // Establece la plataforma como el parent de la bola
             transform.parent = collision.transform;
+        }
+
+        // Detecta si la bola aterriza sobre un suelo resbaladizo
+        if (collision.gameObject.CompareTag("SueloResbaladizo"))
+        {
+            enSueloResbaladizo = true;
         }
     }
 
@@ -108,5 +115,12 @@ public class Bolita : MonoBehaviour
             // Quita la plataforma como el parent de la bola
             transform.parent = null;
         }
+
+        // Detecta cuando la bola deja el suelo resbaladizo
+        if (collision.gameObject.CompareTag("SueloResbaladizo"))
+        {
+            enSueloResbaladizo = false;
+        }
     }
+
 }

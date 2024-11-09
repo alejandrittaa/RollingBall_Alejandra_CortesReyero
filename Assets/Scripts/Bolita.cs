@@ -12,7 +12,6 @@ public class Bolita : MonoBehaviour
     [SerializeField] float distanciaRayo;
     int vidas = 3;
     Vector3 posInicial;
-    private Rigidbody rb;
     private bool enSueloResbaladizo = false;
 
     // Start is called before the first frame update
@@ -21,7 +20,6 @@ public class Bolita : MonoBehaviour
         bolita = GetComponent<Rigidbody>(); 
         //para guardar la posición inicial en la que empieza la bola
         posInicial = transform.position;
-        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -42,7 +40,7 @@ public class Bolita : MonoBehaviour
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
         Vector3 movimiento = new Vector3(h, 0, v);
-
+        float maxVelocidadResbalon = 5;
         float factorDesaceleracion = 0.9f;
 
         if (movimiento.magnitude > 0)
@@ -50,12 +48,28 @@ public class Bolita : MonoBehaviour
             // Aplica fuerza en X y Z si hay movimiento
             bolita.AddForce(movimiento.normalized * fuerzaMovimiento, ForceMode.Force);
         }
-        else if (!enSueloResbaladizo)
+        else
         {
-            // Si no estamos en suelo resbaladizo y no hay movimiento, aplicamos la desaceleración
-            Vector3 velocidadActual = rb.velocity;
-            rb.velocity = new Vector3(velocidadActual.x * factorDesaceleracion, velocidadActual.y, velocidadActual.z * factorDesaceleracion);
+            if (enSueloResbaladizo)
+            {
+                // En suelo resbaladizo, asegúrate de que la bola no se frene
+                if (bolita.velocity.magnitude < maxVelocidadResbalon)
+                {
+                    // Aplica una pequeña aceleración constante en la dirección de la velocidad
+                    Vector3 direccionDeMovimiento = bolita.velocity.normalized; // Dirección actual de la velocidad
+                    bolita.velocity = new Vector3(direccionDeMovimiento.x * maxVelocidadResbalon, bolita.velocity.y, direccionDeMovimiento.z * maxVelocidadResbalon);
+                    // Esto asegura que la bola no se frene y siga resbalando a una velocidad máxima
+                }
+            }
+            else
+            {
+                // Si no estamos en suelo resbaladizo, aplicamos desaceleración en X y Z
+                Vector3 velocidadActual = bolita.velocity;
+                bolita.velocity = new Vector3(velocidadActual.x * factorDesaceleracion, velocidadActual.y, velocidadActual.z * factorDesaceleracion);
+            }
         }
+
+
     }
 
     //CHECKPOINT AL QUEDARSE SIN VIDAS

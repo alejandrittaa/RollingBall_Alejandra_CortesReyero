@@ -11,15 +11,28 @@ public class Bolita : MonoBehaviour
     [SerializeField] int fuerzaMovimiento;
     [SerializeField] float distanciaRayo;
     int vidas = 3;
-    Vector3 posInicial;
+    //Vector3 posInicial;
     private bool enSueloResbaladizo = false;
+    private Vector3 posicionInicial;
+    public Transform checkpoint;
 
     // Start is called before the first frame update
     void Start()
     {
         bolita = GetComponent<Rigidbody>(); 
         //para guardar la posición inicial en la que empieza la bola
-        posInicial = transform.position;
+        //posInicial = transform.position;
+
+        //Checkpoint
+        if (checkpoint != null)
+        {
+            posicionInicial = checkpoint.position;
+        }
+        else
+        {
+            posicionInicial = transform.position; // Usa la posición inicial del jugador si no hay un checkpoint asignado
+        }
+
     }
 
     // Update is called once per frame
@@ -68,12 +81,17 @@ public class Bolita : MonoBehaviour
                 bolita.velocity = new Vector3(velocidadActual.x * factorDesaceleracion, velocidadActual.y, velocidadActual.z * factorDesaceleracion);
             }
         }
+        //Checkpoint
+        if (transform.position.y < -10) 
+        {
+            RegresarAlCheckpoint();
+        }
 
 
     }
 
     //CHECKPOINT AL QUEDARSE SIN VIDAS
-    private void OnTriggerEnter(Collider other)
+    /*private void OnTriggerEnter(Collider other)
     {
        if(other.gameObject.CompareTag("coleccionable"))
         {
@@ -94,7 +112,7 @@ public class Bolita : MonoBehaviour
         {
             transform.position = posInicial;
         }
-    }
+    }*/
 
     private bool DetectaSuelo()
     {
@@ -102,6 +120,18 @@ public class Bolita : MonoBehaviour
         //el rayo solo se pinta en la ventana de edición, no en la de play/jugar
         Debug.DrawRay(transform.position, Vector3.down, Color.red, 2f);
         return deteccion;
+    }
+
+    //CHECKPOINT
+    private void RegresarAlCheckpoint()
+    {
+        transform.position = posicionInicial;
+        bolita.velocity = Vector3.zero; // Reinicia la velocidad de la bola para evitar efectos indeseados al reaparecer
+    }
+
+    public void ActualizarCheckpoint(Vector3 nuevaPosicion)
+    {
+        posicionInicial = nuevaPosicion;
     }
 
     //PARA MOVERSE SIGUIENDO LA TRAYECTORIA DE LAS PLATAFORMAS AL ESTAR ENCIMA Y PARA EL SUELO RESBALADIZO
